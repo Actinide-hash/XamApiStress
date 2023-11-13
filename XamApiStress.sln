@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamApiStress", "XamApiStres
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MauiApiStress", "..\MauiApiStress\MauiApiStress\MauiApiStress.csproj", "{69F0911C-5816-41CB-8AD5-B8DD325902D6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MauiStress", "MauiStress", "{43727DC7-2691-4E01-8D30-B9DD31EAEC44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -96,6 +98,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{69F0911C-5816-41CB-8AD5-B8DD325902D6} = {43727DC7-2691-4E01-8D30-B9DD31EAEC44}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8892AE5B-2127-4DF3-96B4-146507CEFF24}
