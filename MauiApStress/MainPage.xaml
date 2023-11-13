@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MauiApiStress.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="WhiteSmoke">
+
+    <StackLayout>
+        <Frame
+            Margin="20"
+            Padding="24"
+            BackgroundColor="LightSteelBlue"
+            CornerRadius="20">
+            <StackLayout>
+                <Label HorizontalTextAlignment="Start" TextColor="White">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span
+                                FontAttributes="Bold"
+                                FontSize="Medium"
+                                Text="Person Count: " />
+                            <Span
+                                FontAttributes="Italic"
+                                FontSize="Medium"
+                                Text="{Binding MainModel.Count}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label HorizontalTextAlignment="Start" TextColor="White">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span
+                                FontAttributes="Bold"
+                                FontSize="Medium"
+                                Text="List Load Time: " />
+                            <Span
+                                FontAttributes="Italic"
+                                FontSize="Medium"
+                                Text="{Binding MainModel.ListLoadMilisecs, StringFormat='{0} (ms)'}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+
+        </Frame>
+
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="65" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button
+                Grid.Column="0"
+                BackgroundColor="White"
+                Command="{Binding InsertTask}"
+                CornerRadius="10"
+                HeightRequest="80"
+                HorizontalOptions="Center"
+                Text="Insert Task"
+                TextColor="Black"
+                WidthRequest="120">
+                <Button.Triggers>
+                    <DataTrigger
+                        Binding="{Binding MainModel.IsRunning}"
+                        TargetType="Button"
+                        Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Button
+                Grid.Column="1"
+                BackgroundColor="White"
+                Command="{Binding InsertOrReplaceTask}"
+                CornerRadius="10"
+                HeightRequest="80"
+                HorizontalOptions="Center"
+                Text="Insert Or Replace Task"
+                TextColor="Black"
+                WidthRequest="120">
+                <Button.Triggers>
+                    <DataTrigger
+                        Binding="{Binding MainModel.IsRunning}"
+                        TargetType="Button"
+                        Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Button
+                Grid.Column="2"
+                BackgroundColor="White"
+                Command="{Binding BulkInsertTask}"
+                CornerRadius="10"
+                HeightRequest="80"
+                HorizontalOptions="Center"
+                Text="Bulk Insert Task"
+                TextColor="Black"
+                WidthRequest="120">
+                <Button.Triggers>
+                    <DataTrigger
+                        Binding="{Binding MainModel.IsRunning}"
+                        TargetType="Button"
+                        Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Margin="10"
+                HorizontalTextAlignment="Start"
+                TextColor="Black">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            FontAttributes="Bold"
+                            FontSize="Micro"
+                            Text="Last Execution Result:      " />
+                        <Span
+                            FontAttributes="Italic"
+                            FontSize="Medium"
+                            Text="{Binding MainModel.InsertMilisecs, StringFormat='{0} (ms)'}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="10"
+                HorizontalTextAlignment="Start"
+                TextColor="Black">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            FontAttributes="Bold"
+                            FontSize="Micro"
+                            Text="Last Execution Result:      " />
+                        <Span
+                            FontAttributes="Italic"
+                            FontSize="Medium"
+                            Text="{Binding MainModel.InsertOrReplaceMilisecs, StringFormat='{0} (ms)'}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label
+                Grid.Row="1"
+                Grid.Column="2"
+                Margin="10"
+                HorizontalTextAlignment="Start"
+                TextColor="Black">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            FontAttributes="Bold"
+                            FontSize="Micro"
+                            Text="Last Execution Result:      " />
+                        <Span
+                            FontAttributes="Italic"
+                            FontSize="Medium"
+                            Text="{Binding MainModel.BulkInsertMilisecs, StringFormat='{0} (ms)'}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </Grid>
+
+
+        <Button
+            Margin="5"
+            BackgroundColor="PaleVioletRed"
+            Command="{Binding DeleteAll}"
+            CornerRadius="10"
+            HeightRequest="50"
+            HorizontalOptions="Center"
+            Text="Delete All"
+            TextColor="White"
+            WidthRequest="150" />
+        <AbsoluteLayout>
+            <ActivityIndicator
+                AbsoluteLayout.LayoutBounds="0.5, 0.5, 1, 1"
+                AbsoluteLayout.LayoutFlags="All"
+                IsRunning="{Binding MainModel.IsRunning}" />
+        </AbsoluteLayout>
+        <ListView
+            HasUnevenRows="True"
+            ItemsSource="{Binding MainModel.List}"
+            SelectionMode="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding Name, StringFormat='Name: {0}'}" />
+                            <Label Text="{Binding Weight, StringFormat='Weight: {0:F1} Kg'}" />
+                            <Label Text="{Binding Salary, StringFormat='Salary: ${0:F2}'}" />
+                            <Label Text="{Binding DateOfBirth, StringFormat='Birth Day: {0}'}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
+
+
+</ContentPage>
